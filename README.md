@@ -21,9 +21,6 @@ This is a **binary classification** problem. Given a news article’s content, t
 ## 📦 Dataset  
 We are using a publicly available dataset containing thousands of labeled **fake** and **real** news articles. The data will be cleaned, analyzed, and split into training, validation, and test sets.
 
-### Directory Structure:
-data/ ├── raw/ │ ├── Fake.csv │ └── True.csv └── processed/
-
 ---
 
 ## 🔧 ML Workflow  
