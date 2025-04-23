@@ -1,18 +1,23 @@
-# Fake News Detector 📰🤖
+# Fake News Detector 🔍📰
 
-## Overview
-A machine learning project to detect fake news based on news headlines and content.
+## 🧠 Objective
+Build an end-to-end machine learning pipeline that detects whether an article headline or content is fake or real.
 
-## Goals
-- Classify articles as "fake" or "real"
-- Build a deployable ML pipeline
-- Create a live app using Streamlit (planned)
+## 📦 Dataset
+We'll be using a labeled dataset of real vs. fake news articles to train a classifier.
 
-## Dataset
-TBD (Week 1)
+## 🔧 ML Workflow
+- Data Preprocessing
+- Feature Engineering (e.g., TF-IDF, NLP techniques)
+- Model Selection & Evaluation (Logistic Regression, Naive Bayes, etc.)
+- Hyperparameter Tuning
+- Final Pipeline using Scikit-learn
+- Deploy to a Web App (Flask or Streamlit)
 
-## Milestones
-- [x] Week 1: Baseline model
-- [ ] Week 2: Model tuning + SHAP
-- [ ] Week 3: Streamlit app
-- [ ] Week 4: Polish and deploy
+## 🛠 Tech Stack
+- Python
+- Jupyter Notebooks
+- Scikit-learn
+- Pandas / NumPy / Matplotlib
+- NLP tools (e.g., NLTK or spaCy)
+- Streamlit (for app deployment)
