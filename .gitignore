@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.coverage
+*.coveragerc
+coverage.xml
+nosetests.xml
+test_*.xml
+
+# Flask / Django stuff:
+instance/
+.webassets-cache
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# IDEs & Text Editors
+*~
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Other files/folders you might not want to track:
+# Large data files
+*.pkl
+*.csv
+*.tsv
+*.json
+*.h5
+
+# Git Large File Storage (LFS) tracking for very large files (optional)
+*.tar.gz
