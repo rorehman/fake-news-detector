@@ -1,56 +1,38 @@
 import streamlit as st
-import joblib
-import os
-import spacy
-
-# Load spaCy model
-nlp = spacy.load("en_core_web_sm")
-
-# Preprocessing
-def preprocess_text(text):
-    doc = nlp(text.lower())
-    tokens = [
-        token.lemma_ for token in doc
-        if not token.is_stop and not token.is_punct and not token.is_space
-    ]
-    return ' '.join(tokens)
-
-# Load models (cached)
-@st.cache_resource
-def load_models():
-    news_model = joblib.load(os.path.join("models", "final_model.pkl"))
-    claims_model = joblib.load(os.path.join("models", "claims_model.pkl"))
-    return {
-        "News Article": news_model,
-        "Claim/Statement": claims_model
-    }
-
-models = load_models()
+import requests
 
 # Streamlit UI
 st.title("📰 Fake News & Claim Detector")
-st.write("Check if a news article or a short factual claim is **real or fake**.")
+st.write("Enter text below to check if it's **real or fake**.")
 
-# Model choice
+# User input
+user_input = st.text_area("Text", height=200)
+
+# Model selection
 model_type = st.radio(
-    "What are you checking?",
-    ["News Article", "Claim/Statement"]
+    "Choose Model",
+    ("news", "claims"),
+    index=0,
+    help="Use 'news' for news articles, 'claims' for statements/facts."
 )
 
-user_input = st.text_area("Enter your text below:", height=200)
-
+# Predict button
 if st.button("Check"):
     if user_input.strip() == "":
         st.warning("Please enter some text.")
     else:
-        cleaned = preprocess_text(user_input)
-        model = models[model_type]
-        prediction = model.predict([cleaned])[0]
-        label = "🔴 Fake" if prediction == 0 else "🟢 Real"
+        # Call FastAPI backend
+        url = "http://127.0.0.1:8000/predict"
+        payload = {"text": user_input, "model_type": model_type}
 
-        if hasattr(model, "predict_proba"):
-            confidence = round(max(model.predict_proba([cleaned])[0]) * 100, 2)
-            st.markdown(f"### {label}")
-            st.write(f"**Confidence:** {confidence}%")
-        else:
-            st.markdown(f"### {label}")
+        try:
+            response = requests.post(url, json=payload)
+            response.raise_for_status()
+            data = response.json()
+
+            st.markdown(f"### Model used: {data['model_used']}")
+            st.markdown(f"### Prediction: {data['label']}")
+            st.write(f"**Confidence:** {data['confidence']}%")
+
+        except requests.exceptions.RequestException as e:
+            st.error(f"Error connecting to the API: {e}")
